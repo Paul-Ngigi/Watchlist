@@ -3,7 +3,7 @@ import urllib.request
 import json
 from .models import movie
 
-Movie = movie
+Movie = movie.Movie
 
 # Getting api key
 api_key = app.config['MOVIE_API_KEY']
@@ -51,7 +51,7 @@ def process_results(movie_list):
         vote_count = movie_item.get('vote_count')
 
         if poster:
-            movie_object = Movie(id, title, overview, poster,  vote_average, vote_count)
+            movie_object = Movie(id, title, overview, poster, vote_average, vote_count)
             movie_results.append(movie_object)
 
     return movie_results
