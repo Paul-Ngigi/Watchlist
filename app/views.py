@@ -1,5 +1,5 @@
 from flask import render_template
-from . import app
+from app import app
 
 
 # Views
@@ -8,8 +8,8 @@ def index():
     """
     View root page function that returns the index page and its data
     """
-    message = 'Hello World'
-    return render_template('index.html', message=message)
+    title = 'Home - Welcome to The Best Movie Review Website Online'
+    return render_template('index.html', title=title)
 
 
 @app.route('/movie/<int:movie_id>')
