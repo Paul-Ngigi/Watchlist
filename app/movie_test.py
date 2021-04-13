@@ -6,7 +6,7 @@ Movie = movie.Movie
 
 class MovieTest(unittest.TestCase):
     """
-    Test class to test the behaviour of the Movie class
+    Class that tests the behaviour of the Movie class
     """
 
     def setUp(self) -> None:
