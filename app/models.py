@@ -42,29 +42,31 @@ class Review:
         for review in cls.all_reviews:
             if review.movie_id == id:
                 response.append(review)
-
         return response
 
 
-class User(UserMixin,db.Model):
+
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255))
-    email = db.Column(d.String(255),unique=True, index=True)
+    email = db.Column(db.String(255), unique=True, index=True)
     rode_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
-    
+
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
-    
+
     @password.setter
     def password(self, password):
         self.pass_secure = generate_password_hash(password)
-        
+
     def verify_password(self, password):
-        return check_password_hash(self.pass_secure)
+        return check_password_hash(self.pass_secure, password)
 
     def __repr__(self):
         return f'User {self.username}'
@@ -73,11 +75,12 @@ class User(UserMixin,db.Model):
     def load_user(user_id):
         return User.query.get(int(user_id))
 
+
 class Role(db.Model):
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
-    users = db.relationship('User',backref = 'role', lazy="dynamic")
+    users = db.relationship('User', backref='role', lazy="dynamic")
 
     def __repr__(self):
         return f'User {self.name}'
